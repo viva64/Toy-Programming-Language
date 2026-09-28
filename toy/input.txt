@@ -1,0 +1,24 @@
+fn fact_rec(int arg) int
+{
+  if(arg <= 0)
+   return 1;
+
+  return arg * fact_rec(arg - 1);
+}
+
+fn fact_loop(int arg)
+{
+  var res = 1;
+  while(arg > 0)
+  {
+    res = res * arg;
+    arg = arg - 1;
+  }
+  return res;
+}
+
+
+fn _main()
+{
+  return fact_loop(5);
+}

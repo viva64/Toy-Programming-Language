@@ -1,0 +1,182 @@
+program:
+ decl-list
+
+decl-list:
+ declaration
+ decl-list declaration
+
+declaration:
+ ';'
+ var-decl ';'
+ func-decl
+
+var-decl:
+ 'var' name '=' expr
+
+func-decl:
+ 'fn' name func-params return-type compound-statement
+
+return-type:
+  ''
+  type-name
+  'void'
+
+func-params:
+ '(' param-list ')'
+
+param-list:
+ ''
+ param-decl
+ param-list ',' param-decl
+
+param-decl:
+ type-name name
+
+type-name:
+ 'int' 'float' 'bool'
+
+compound-statement:
+ '{' statement-list '}'
+
+statement-list:
+ ''
+ statement
+ statement-list statement
+
+statement:
+ ';'
+ var-decl ';'
+ expr ';'
+ compound-statement
+ return-statement ';'
+ if-statement
+ while-statement
+
+return-statement:
+ 'return' ''
+ 'return' expr
+
+if-statement:
+ 'if' condition statement
+  else-clause
+
+else-clause:
+ ''
+ 'else' statement
+
+while-statement:
+ 'while' condition statement
+
+condition:
+ '(' expr ')'
+
+expr:
+ assign-expr
+
+assign-expr:
+ id-expr '=' expr
+
+logical-or-expr:
+  logical-and-expr
+  logical-or-expr '||' logical-and-expr
+
+logical-and-expr:
+  equality-expr
+  logical-and-expr '&&' equality-expr
+
+equality-expr:
+  relational-expr
+  equality-expr eq-op relational-expr
+
+relational-expr:
+  additive-expr
+  relational-expr rel-op additive-expr
+
+additive-expr:
+ multiplicative-expr
+ additive-expr add-op multiplicative-expr
+
+multiplicative-expr:
+ unary-expr
+ multiplicative-expr mul-op unary-expr
+
+unary-expr:
+ postfix-expr
+ unary-op unary-expr
+
+postfix-expr:
+ primary-expr
+ call-expr
+
+call-expr:
+ postfix-expr args
+
+args:
+ '(' expr-list ')'
+
+expr-list:
+ ''
+ expr
+ expr-list ',' expr
+
+primary-expr:
+ paren-expr
+ literal-expr
+ id-expr
+
+paren-expr:
+ '(' expr ')'
+
+id-expr:
+ identifier
+
+literal-expr:
+ int-number
+ float-number
+ 'true'
+ 'false'
+
+name:
+ identifier
+
+add-op:
+ + -
+
+mul_op:
+ * /
+
+unary-op:
+ + - !
+
+eq-op:
+ == !=
+
+rel-op:
+ < > <= >=
+
+identifier:
+ identifier-start
+ identifier-start id-sequence
+
+id-sequence:
+ identifier-char id-sequence
+ identifier-char
+
+identifier-start:
+ [a - z, A - Z] _
+
+identifier-char :
+ [a - z, A - Z] _ [0 - 9]
+
+int-number:
+ digit-sequence
+
+float-number:
+ digit-sequence '.' digit-sequence
+
+digit-sequence:
+ digit
+ digit-sequence digit
+
+digit:
+ 0 1 2 3 4 5 6 7 8 9
